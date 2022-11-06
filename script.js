@@ -67,8 +67,8 @@ unsubCbxEl.addEventListener('mouseenter', (e) => {
     }
 
     peelEl.style.width = peelLen + 'px'; // recall peel
-    peelEl.style.left = e.screenX - peelLen / 2 + 'px'; // center peel on mouse rather than cbx
-    peelEl.style.top = e.screenY - 2 * peelH + 'px'; // center peel on mouse rather than cbx
+    peelEl.style.left = e.pageX - peelLen / 2 + 'px'; // center peel on mouse rather than cbx
+    peelEl.style.top = e.pageY - 2 * peelH + 'px'; // center peel on mouse rather than cbx
     peelEl.style.transform = `rotate(${Math.random()}turn)`;
 
     setTimeout(() => {  // send peel behind cbx if mouse near peel
@@ -120,15 +120,6 @@ trashEl.addEventListener('drop', (e) => {
         movePeelToCheckbox(peelEl);
       }, 1000);
       removeAllPeels();
-      // for (let i = 1; i <= peelCount; i++) {  // destroy remaining peels
-      //   const el = document.getElementById('peel' + i);
-      //   if (el) {
-      //     el.style.transition = '1000ms';
-      //     movePeel(el, true);
-      //     el.style.width = '0px';
-      //     setTimeout(() => { el.remove(); }, 1000);
-      //   }
-      // }
       return;
     }
     dragged.remove();
@@ -181,6 +172,7 @@ function mmPeel(e) {
 
 /** Move given peel to a random location within window. */
 function movePeel(el, rotate = false) {
+  console.log(window.innerWidth);
   const range = [window.innerWidth - peelLen * 1.1, window.innerHeight - peelLen];
   const newLoc = [rng(0, range[0]), rng(0, range[1])];
   el.style.left = newLoc[0] + 'px';
